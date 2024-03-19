@@ -17,11 +17,11 @@ public class Live2DLibrary : ModuleRules
 		if (!File.Exists(Path.Combine(binariesDir, filename)))
 			File.Copy(Filepath, Path.Combine(binariesDir, filename), true);
 	}
-	
+
 	public Live2DLibrary(ReadOnlyTargetRules Target) : base(Target)
 	{
 		Type = ModuleType.External;
-		
+
 		PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "Core", "include"));
 		PublicDefinitions.Add("CSM_CORE_WIN32_DLL=0");
 
@@ -36,13 +36,13 @@ public class Live2DLibrary : ModuleRules
 			// Ensure that the DLL is staged along with the executable
 			CopyToBinaries(Path.Combine(ModuleDirectory, "Core", "dll", "windows", "x86_64", "Live2DCubismCore.dll"), Target);
 			RuntimeDependencies.Add("$(PluginDir)/Binaries/ThirdParty/Live2DLibrary/Win64/Live2DCubismCore.dll");
-        }
-        else if (Target.Platform == UnrealTargetPlatform.Mac)
-        {
-            PublicDelayLoadDLLs.Add(Path.Combine(ModuleDirectory, "Mac", "Release", "libExampleLibrary.dylib"));
-            RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/Live2DLibrary/Mac/Release/libExampleLibrary.dylib");
-        }
-        else if (Target.Platform == UnrealTargetPlatform.Linux)
+		}
+		else if (Target.Platform == UnrealTargetPlatform.Mac)
+		{
+			PublicDelayLoadDLLs.Add(Path.Combine(ModuleDirectory, "Mac", "Release", "libExampleLibrary.dylib"));
+			RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/Live2DLibrary/Mac/Release/libExampleLibrary.dylib");
+		}
+		else if (Target.Platform == UnrealTargetPlatform.Linux)
 		{
 			string ExampleSoPath = Path.Combine("$(PluginDir)", "Binaries", "ThirdParty", "Live2DLibrary", "Linux", "x86_64-unknown-linux-gnu", "libExampleLibrary.so");
 			PublicAdditionalLibraries.Add(ExampleSoPath);
